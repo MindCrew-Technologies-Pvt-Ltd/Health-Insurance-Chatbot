@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            background-color: #f4f4f4;
+        }
+        #chat-container {
+            width: 400px;
+            margin-top: 6%;
+            height: 500px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-display {
+            height: 400px;
+            padding: 20px;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            background-color: #0b0b0b;
+            border-bottom: 1px solid #ddd;
+        }
+        .ge {
+            margin-bottom: 10px;
+        }
+        .bot {
+            color: #888;
+            text-align: left;
+            color: whitesmoke;
+        }
+        .user {
+            text-align: right;
+            color: aqua;
+        }
+        
+
+        .custom-button {
+            background-color: #007bff; /* Background color */
+            color: #fff; /* Text color */
+            border: none; /* Remove the default button border */
+            padding: 10px 20px; /* Padding around the text */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Add a pointer cursor on hover */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none;
+        }
+
+        /* CSS for button hover state */
+        .custom-button:hover {
+            background-color: #0056b3; /* Change background color on hover */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div id="chat-container">      
+    <div class="message" style="color: rgb(137, 77, 16); text-align: center; font-size: larger; padding-top: 2%;">Insurance Chatbot</div>
+    
+    <div id="chat-display">
+            
+        {% for chat in chat_history %}
+            <div class="message {{ chat.type }}">{{ chat.message }}</div>
+       {% endfor %}
+       
+    </div>
+         
+            
+        
+        <div id="chat-input">
+            <form method="post" > 
+                {% csrf_token %}
+                <input type="text" name="user_input" placeholder="Start chatting with bot..." style="width: 90%; padding: 10px;">
+                <button type="submit" class="custom-button" style="margin-top: 1%;">Send</button>
+                <a href="{% url 'home' %}" class="custom-button" style="margin-top: 2%;">Clear Chat</a>
+                
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chatDisplay = document.getElementById('chat-display');
+        chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the bottom initially
+
+        const chatForm = document.getElementById('chat-form');
+        chatForm.addEventListener('submit', function (event) {
+            event.preventDefault(); 
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+        });
+    });
+
+</script>
+
+
+</html>
+
+
+
